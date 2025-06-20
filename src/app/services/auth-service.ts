@@ -24,7 +24,11 @@ export class AuthService {
   }
 
   signIn(user: User) {
-    return signInWithEmailAndPassword(this.auth, user.email, user.password);
+    return signInWithEmailAndPassword(
+      this.auth, 
+      user.email, 
+      user.password
+    );
   }
 
   signInWithGoogle() {

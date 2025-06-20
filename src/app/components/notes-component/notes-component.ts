@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { AuthService } from '../../services/auth-service';
 import { AsyncPipe } from '@angular/common';
 import { FirebaseService } from '../../services/firebase-service';
@@ -10,8 +10,5 @@ import { FirebaseService } from '../../services/firebase-service';
   styleUrl: './notes-component.css'
 })
 export class NotesComponent {
-  constructor(public service:FirebaseService){
-
-  }
-
+  service=inject(FirebaseService)
 }
