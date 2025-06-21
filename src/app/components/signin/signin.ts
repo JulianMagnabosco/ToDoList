@@ -30,7 +30,6 @@ export class Signin implements OnInit {
 
   ngOnInit(): void {
     this.service.auth.onAuthStateChanged((user) => {
-      console.log(user)
       if(user){
         this.user.set(user);
         this.toNoteEvent.emit()

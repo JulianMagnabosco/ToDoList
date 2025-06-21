@@ -1,25 +1,28 @@
-<form class="flex items-center max-w-sm mx-auto mt-4">   
-    <label for="simple-search" class="sr-only">Search</label>
-    <input type="text" id="simple-search" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search branch name..." required />
+<form class="flex items-center max-w-sm mx-auto mt-4" >
+  <label for="simple-search" class="sr-only">Search</label>
+  <input type="text" id="simple-search" [(ngModel)]="newNoteTitle" name="text"
+    class="bg-gray-800 border border-gray-700 text-gray-500 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  "
+    placeholder="Search branch name..." required />
 
-    <button type="submit" class="size-12 p-2.5 ms-2 text-sm font-medium text-white bg-blue-700 rounded-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-        <span class="material-icons">add</span>
-        <span class="sr-only">Search</span>
-    </button>
+  <button type="submit" (click)="addNote()"
+    class="inline-flex items-center p-2.5 ms-2 text-base font-medium text-white bg-blue-700 rounded-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 ">
+    <div class="material-icons">add</div>
+    <span class="sr-only">Search</span>
+  </button>
 </form>
 
 
 
-<div class="px-4 mt-4 text-white ">
-@for (item of (service.notes | async); track $index) {
-  <div class="last:rounded-b first:rounded-t relative flex items-center w-full px-4 py-2 text-sm font-medium border-b border-x border-gray-200 hover:bg-gray-500 bg-gray-600 ">
-        <span class="material-icons">
-          check
-        </span>
-        <span class="m-2">
-          {{item["title"]}}
-        </span>
-    </div>
-}
+<div class="mt-4 max-w-sm mx-auto text-white ">
+  @for (item of (getNotes() | async); track $index) {
+  <div (click)="checkNote(item)"
+    class="last:rounded-b-lg first:rounded-t-lg relative flex items-center w-full px-4 py-2 text-sm font-medium not-first:border-t border-gray-200 hover:bg-gray-500 bg-gray-600 ">
+    <span class="material-icons">
+      {{item["completed"]?"check":"clear"}}
+    </span>
+    <span class="m-2">
+      {{item["title"]}}
+    </span>
+  </div>
+  }
 </div>
-

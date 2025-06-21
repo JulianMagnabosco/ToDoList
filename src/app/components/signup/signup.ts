@@ -32,8 +32,10 @@ export class Signup implements OnInit {
 
   ngOnInit(): void {
     this.service.auth.onAuthStateChanged((user) => {
-      console.log(user)
       this.user.set(user);
+      if(user){
+        this.toNoteEvent.emit();
+      }
     });
   }
 

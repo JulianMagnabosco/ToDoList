@@ -1,6 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { Auth, AuthModule, createUserWithEmailAndPassword, GoogleAuthProvider, signInWithEmailAndPassword, signInWithPopup } from '@angular/fire/auth';
 import { Firestore } from '@angular/fire/firestore';
+import { signOut } from '@firebase/auth';
 import firebase from 'firebase/compat/app';
 
 export interface User {
@@ -39,4 +40,9 @@ export class AuthService {
     return signInWithPopup(this.auth, provider);
   }
 
+  signOut() {
+    return signOut(
+      this.auth
+    );
+  }
 }
