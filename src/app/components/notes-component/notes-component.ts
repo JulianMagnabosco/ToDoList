@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { Component, ElementRef, inject, OnInit, signal, ViewChild } from '@angular/core';
 import { AuthService } from '../../services/auth-service';
 import { AsyncPipe } from '@angular/common';
 import { FirebaseService } from '../../services/firebase-service';
@@ -15,6 +15,9 @@ export class NotesComponent implements OnInit{
   service=inject(FirebaseService)
 
   newNoteTitle="" 
+  selectedNote:any;
+
+  @ViewChild('dialog') dialog!: ElementRef;
 
   ngOnInit(): void {
     // this.service.notesOrdered.subscribe({next(value) {
@@ -38,10 +41,18 @@ export class NotesComponent implements OnInit{
     this.service.addNote(newNote)
   }
 
-  async checkNote(note:any){
-    if(note["completed"]) return
-    console.log(this.service.notesColl)
-    await this.service.updateNote(note["id"],{completed: true})
+  checkNote(note:any){
+    if(note["completed"]) {
+      this.dialog.nativeElement.showModal();
+      this.selectedNote=note
+      return;
+    }
+    this.service.updateNote(note["id"],{completed: true})
     
+  }
+
+  deleteNote(){
+    this.service.deleteNote(this.selectedNote["id"]);
+    this.dialog.nativeElement.close();
   }
 }

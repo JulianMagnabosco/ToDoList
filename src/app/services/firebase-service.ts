@@ -5,10 +5,10 @@ import { addDoc, collection, collectionData, deleteDoc, doc, DocumentReference, 
   providedIn: 'root'
 })
 export class FirebaseService {
-  firestore = inject(Firestore)
-  notesColl = collection(this.firestore,"notes")
-  notes = collectionData(this.notesColl, { idField: 'id' })
-  notesCollOrdered = query(this.notesColl,orderBy("completed","asc"))
+  firestore = inject(Firestore);
+  notesColl = collection(this.firestore,"notes");
+  notes = collectionData(this.notesColl, { idField: 'id' });
+  notesCollOrdered = query(this.notesColl,orderBy("completed","asc"),orderBy("datetime","desc"));
   notesOrdered  = collectionData(this.notesCollOrdered, { idField: 'id' })
 
   addNote(data:any){

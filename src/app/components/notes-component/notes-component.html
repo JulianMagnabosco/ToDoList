@@ -1,7 +1,7 @@
-<form class="flex items-center max-w-sm mx-auto mt-4 text-base sm:text-lg" >
+<form class="flex items-center max-w-sm mx-auto mt-4 text-base sm:text-lg">
   <label for="simple-search" class="sr-only">Search</label>
   <input type="text" id="simple-search" [(ngModel)]="newNoteTitle" name="text"
-    class="bg-gray-800 border border-gray-700 text-gray-500 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  "
+    class="bg-gray-800 border border-gray-700 text-gray-500 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  "
     placeholder="Search branch name..." required />
 
   <button type="submit" (click)="addNote()"
@@ -15,8 +15,7 @@
 
 <div class="mt-4 max-w-sm mx-auto text-white ">
   @for (item of (getNotes() | async); track $index) {
-  <div (click)="checkNote(item)"
-    class="last:rounded-b-lg first:rounded-t-lg relative flex items-center w-full px-4 py-2 text-sm sm:text-lg font-medium 
+  <div (click)="checkNote(item)" class="last:rounded-b-lg first:rounded-t-lg relative flex items-center w-full px-4 py-2 text-sm sm:text-lg font-medium 
     not-first:border-t border-gray-200 hover:bg-gray-500 bg-gray-600 ">
     @if (item["completed"]){
     <span class="material-icons">
@@ -37,3 +36,13 @@
   </div>
   }
 </div>
+
+<dialog class="backdrop:bg-gray-800 backdrop:opacity-40 fixed top-1/2 left-1/2 -translate-1/2 rounded-lg max-w-2xl p-4" #dialog>
+
+      <h1 class="text-4xl mb-4">¿Eliminar tarea?</h1>
+      <div class="text-2xl flex justify-between p-2 *:p-2.5 space-x-3 *:px-3.5 *:rounded-lg *:hover:brightness-75">
+        <button class="bg-white text-blue-900 " (click)="dialog.close()">Cancelar</button>
+        <button class="bg-blue-700 text-white" (click)="deleteNote()">Aceptar</button>
+      </div>
+
+</dialog>
