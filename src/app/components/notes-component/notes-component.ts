@@ -1,9 +1,9 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { AuthService } from '../../services/auth-service';
 import { AsyncPipe } from '@angular/common';
 import { FirebaseService } from '../../services/firebase-service';
 import { FormsModule } from '@angular/forms';
-import { addDoc, doc, getDocs, Timestamp } from '@angular/fire/firestore';
+import { addDoc, collectionData, doc, getDocs, Timestamp } from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-notes',
@@ -16,15 +16,17 @@ export class NotesComponent implements OnInit{
 
   newNoteTitle="" 
 
-  async ngOnInit(): Promise<void> {
-    const values = await getDocs(this.service.notesColl);
-    values.forEach((v)=>{
-      console.log(v)
-    })
+  ngOnInit(): void {
+    // this.service.notesOrdered.subscribe({next(value) {
+    //   console.log(value)
+    // },})
+    // this.service.notes.subscribe({next(value) {
+    //   console.log(value)
+    // },})
   }
 
   getNotes(){
-    return this.service.notes
+    return this.service.notesOrdered
   }
 
   addNote(){
@@ -36,9 +38,10 @@ export class NotesComponent implements OnInit{
     this.service.addNote(newNote)
   }
 
-  async checkNote(id:any){
+  async checkNote(note:any){
+    if(note["completed"]) return
     console.log(this.service.notesColl)
-    await this.service.updateNote(id,{completed: true})
+    await this.service.updateNote(note["id"],{completed: true})
     
   }
 }

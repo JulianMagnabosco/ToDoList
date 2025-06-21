@@ -1,11 +1,11 @@
-<form class="flex items-center max-w-sm mx-auto mt-4" >
+<form class="flex items-center max-w-sm mx-auto mt-4 text-base sm:text-lg" >
   <label for="simple-search" class="sr-only">Search</label>
   <input type="text" id="simple-search" [(ngModel)]="newNoteTitle" name="text"
     class="bg-gray-800 border border-gray-700 text-gray-500 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  "
     placeholder="Search branch name..." required />
 
   <button type="submit" (click)="addNote()"
-    class="inline-flex items-center p-2.5 ms-2 text-base font-medium text-white bg-blue-700 rounded-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 ">
+    class="inline-flex items-center p-2.5 ms-2 font-medium text-white bg-blue-700 rounded-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 ">
     <div class="material-icons">add</div>
     <span class="sr-only">Search</span>
   </button>
@@ -16,13 +16,24 @@
 <div class="mt-4 max-w-sm mx-auto text-white ">
   @for (item of (getNotes() | async); track $index) {
   <div (click)="checkNote(item)"
-    class="last:rounded-b-lg first:rounded-t-lg relative flex items-center w-full px-4 py-2 text-sm font-medium not-first:border-t border-gray-200 hover:bg-gray-500 bg-gray-600 ">
+    class="last:rounded-b-lg first:rounded-t-lg relative flex items-center w-full px-4 py-2 text-sm sm:text-lg font-medium 
+    not-first:border-t border-gray-200 hover:bg-gray-500 bg-gray-600 ">
+    @if (item["completed"]){
     <span class="material-icons">
-      {{item["completed"]?"check":"clear"}}
+      check
+    </span>
+    <span class="m-2 line-through decoration-2 decoration-blue-500">
+      {{item["title"]}}
+    </span>
+    }
+    @else {
+    <span class="material-icons">
+      clear
     </span>
     <span class="m-2">
       {{item["title"]}}
     </span>
+    }
   </div>
   }
 </div>
