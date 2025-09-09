@@ -7,7 +7,7 @@ import { addDoc, collectionData, doc, getDocs, Timestamp } from '@angular/fire/f
 
 @Component({
   selector: 'app-notes',
-  imports: [AsyncPipe,FormsModule],
+  imports: [FormsModule],
   templateUrl: './notes-component.html',
   styleUrl: './notes-component.css'
 })
@@ -16,6 +16,7 @@ export class NotesComponent implements OnInit{
 
   newNoteTitle="" 
   selectedNote:any;
+  listNotes=signal<any[]>([])
 
   @ViewChild('dialog') dialog!: ElementRef;
 
@@ -26,10 +27,15 @@ export class NotesComponent implements OnInit{
     // this.service.notes.subscribe({next(value) {
     //   console.log(value)
     // },})
+    this.getNotes()
   }
 
   getNotes(){
-    return this.service.notesOrdered
+    this.service.getAllNotes?.subscribe({next: (value) => {
+      console.log(value)
+      this.listNotes.set(value)
+    },})
+    return this.service.getAllNotes;
   }
 
   addNote(){

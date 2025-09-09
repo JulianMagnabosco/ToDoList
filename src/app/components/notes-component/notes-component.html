@@ -14,7 +14,7 @@
 
 
 <div class="mt-4 max-w-sm mx-auto text-white ">
-  @for (item of (getNotes() | async); track $index) {
+  @for (item of listNotes(); track $index) {
   <div (click)="checkNote(item)" class="last:rounded-b-lg first:rounded-t-lg relative flex items-center w-full px-4 py-2 text-sm sm:text-lg font-medium 
     not-first:border-t border-gray-200 hover:bg-gray-500 bg-gray-600 ">
     @if (item["completed"]){

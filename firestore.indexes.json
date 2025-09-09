@@ -11,6 +11,10 @@
         {
           "fieldPath": "datetime",
           "order": "DESCENDING"
+        },
+        {
+          "fieldPath": "uid",
+          "order": "DESCENDING"
         }
       ]
     }
